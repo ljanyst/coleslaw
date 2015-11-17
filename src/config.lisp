@@ -17,7 +17,8 @@
    (staging-dir     :initarg :staging-dir    :reader staging-dir)
    (theme           :initarg :theme          :reader theme)
    (title           :initarg :title          :reader title)
-   (blog-index      :initarg :blog-index     :reader blog-index))
+   (blog-index      :initarg :blog-index     :reader blog-index)
+   (silent          :initarg :silent         :reader silent))
   (:default-initargs
    :feeds        nil
    :license      nil
@@ -28,7 +29,8 @@
    :page-ext     "html"
    :separator    ";;;;;"
    :staging-dir  "/tmp/coleslaw"
-   :blog-index   "index.html"))
+   :blog-index   "index.html"
+   :silent       nil))
 
 (defmethod initialize-instance :after ((config blog) &key)
   (with-slots (routing) config

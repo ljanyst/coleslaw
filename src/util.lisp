@@ -78,7 +78,9 @@ If ARGS is provided, use (fmt path args) as the value of PATH."
 (defun run-program (program &rest args)
   "Take a PROGRAM and execute the corresponding shell command. If ARGS is provided,
 use (fmt program args) as the value of PROGRAM."
-  (inferior-shell:run (fmt program args) :show t))
+  (inferior-shell:run (fmt program args)
+                      :show (not (silent *config*))
+                      :output (not (silent *config*))))
 
 (defun take-up-to (n seq)
   "Take elements from SEQ until all elements or N have been taken."
