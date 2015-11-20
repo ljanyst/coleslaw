@@ -38,7 +38,7 @@ in REPO-DIR. Optionally, OLDREV is the revision prior to the last push."
     (do-subclasses (itype index)
       (publish itype))
     (update-symlink (blog-index *config*)
-                    (format nil "1.~A" (page-ext *config*)))))
+                    (get-first-numeric-index))))
 
 (defgeneric deploy (staging)
   (:documentation "Deploy the STAGING build to the directory specified in the config.")
