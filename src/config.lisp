@@ -18,7 +18,9 @@
    (theme           :initarg :theme          :reader theme)
    (title           :initarg :title          :reader title)
    (blog-index      :initarg :blog-index     :reader blog-index)
-   (silent          :initarg :silent         :reader silent))
+   (silent          :initarg :silent         :reader silent)
+   (videocdn        :initarg :videocdn       :reader videocdn)
+   (sitecdn         :initarg :sitecdn        :reader sitecdn))
   (:default-initargs
    :feeds        nil
    :license      nil
@@ -30,7 +32,9 @@
    :separator    ";;;;;"
    :staging-dir  "/tmp/coleslaw"
    :blog-index   "index.html"
-   :silent       nil))
+   :silent       nil
+   :videocdn    ""
+   :sitecdn     ""))
 
 (defmethod initialize-instance :after ((config blog) &key)
   (with-slots (routing) config
