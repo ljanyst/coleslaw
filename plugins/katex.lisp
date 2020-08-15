@@ -5,7 +5,8 @@
                           #:content
                           #:index
                           #:tag-p
-                          #:index-content))
+                          #:index-content
+                          #:content-text))
 
 (in-package :coleslaw-katex)
 
@@ -15,10 +16,13 @@
 <script defer src=\"~a/contrib/auto-render.min.js\" onload=\"renderMathInElement(document.body);\"></script>
 ")
 
+(defun math-p (content)
+  (not (null (search "\\[" (content-text content)))))
+
 (defgeneric katex-p (document)
-  (:documentation "Test if DOCUMENT requires contains any math-tagged content.")
+  (:documentation "Test if DOCUMENT requires contains any math content.")
   (:method ((content content))
-    (tag-p "math" content))
+    (math-p content))
   (:method ((index index))
     (and (slot-boundp index 'content)
          (some #'katex-p (index-content index)))))
