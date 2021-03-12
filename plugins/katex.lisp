@@ -17,7 +17,8 @@
 ")
 
 (defun math-p (content)
-  (not (null (search "\\[" (content-text content)))))
+  (not (null (or (search "\\[" (content-text content))
+                 (search "\\(" (content-text content))))))
 
 (defgeneric katex-p (document)
   (:documentation "Test if DOCUMENT requires contains any math content.")
