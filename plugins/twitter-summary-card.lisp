@@ -5,17 +5,16 @@
 (in-package :coleslaw-twitter-summary-card)
 
 (defun summary-card (post twitter-handle)
-  "TODO: Figure if and how to include twitter:url meta property."
-  (format nil "<meta property=\"twitter:card\" content=\"summary\" />
-~@[<meta property=\"twitter:author\" content=\"~A\" />~]
-<meta property=\"twitter:title\" content=\"~A\" />
-<meta property=\"twitter:description\" content=\"~A\" />"
-          twitter-handle
-          (title-of post)
-          (let ((text (content-text post)))
-            (if (< 200 (length text))
-                (subseq text 0 199)
-                text))))
+  (when (description-of post)
+    (concatenate
+     'string
+     "<meta name=\"twitter:card\" content=\"summary\" />"
+     (format nil "<meta name=\"twitter:author\" content=\"~a\" />" twitter-handle)
+     (format nil "<meta property=\"og:url\" content=\"https:~a/~a\" />" (domain *config*) (page-url post))
+     (format nil "<meta property=\"og:title\" content=\"~a\" />" (title-of post))
+     (format nil "<meta property=\"og:description\" content=\"~a\" />" (description-of post))
+     (when (image-of post)
+       (format nil "<meta property=\"og:image\" content=\"~a~a\" />" (sitecdn *config*) (image-of post))))))
 
 (defun enable (&key twitter-handle)
   (add-injection
