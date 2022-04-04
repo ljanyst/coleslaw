@@ -19,7 +19,7 @@
   ;; Expect all static-pages to be written in Markdown for now.
   (with-slots (coleslaw::url coleslaw::text) object
     (setf coleslaw::url (make-pathname :defaults coleslaw::url)
-          coleslaw::text (render-text coleslaw::text :md))))
+          coleslaw::text (render-text coleslaw::text :md coleslaw::url))))
 
 (defmethod render ((object page) &key next prev)
   ;; For the time being, we'll re-use the normal post theme.

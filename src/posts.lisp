@@ -10,7 +10,7 @@
   (with-slots (url title author format text) object
     (setf url (compute-url object (slugify title))
           format (make-keyword (string-upcase format))
-          text (render-text text format)
+          text (render-text text format url)
           author (or author (author *config*)))))
 
 (defmethod render ((object post) &key prev next)

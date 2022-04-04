@@ -109,11 +109,12 @@
   "Find the CONTENT corresponding to the file at PATH."
   (find path (find-all 'content) :key #'content-file :test #'string=))
 
-(defgeneric render-text (text format)
+(defgeneric render-text (text format docid)
   (:documentation "Render TEXT of the given FORMAT to HTML for display.")
-  (:method (text (format (eql :html)))
+  (:method (text (format (eql :html)) docid)
     text)
-  (:method (text (format (eql :md)))
-    (let ((3bmd-code-blocks:*code-blocks* t))
+  (:method (text (format (eql :md)) docid)
+    (let ((3bmd-code-blocks:*code-blocks* t)
+          (3bmd:*docid* (format nil "~a" docid)))
       (with-output-to-string (str)
         (3bmd:parse-string-and-print-to-stream text str)))))

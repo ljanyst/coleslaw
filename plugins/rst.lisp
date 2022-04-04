@@ -11,7 +11,7 @@
 
 (in-package :coleslaw-rst)
 
-(defmethod render-text (text (format (eql :rst)))
+(defmethod render-text (text (format (eql :rst)) docid)
   (register-settings-spec '((:generator nil)
                             (:datestamp nil)))
   (with-output-to-string (str)
