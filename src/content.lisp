@@ -48,12 +48,18 @@
 ;; Content Types
 
 (defclass content ()
-  ((url  :initarg :url  :reader page-url)
-   (date :initarg :date :reader date-of)
-   (file :initarg :file :reader content-file)
-   (tags :initarg :tags :reader tags-of)
-   (text :initarg :text :reader content-text))
-  (:default-initargs :tags nil :date nil))
+  ((url         :initarg :url         :reader page-url)
+   (date        :initarg :date        :reader date-of)
+   (file        :initarg :file        :reader content-file)
+   (tags        :initarg :tags        :reader tags-of)
+   (text        :initarg :text        :reader content-text)
+   (description :initarg :description :reader description-of)
+   (image       :initarg :image       :reader image-of))
+  (:default-initargs
+   :tags nil
+   :date nil
+   :description nil
+   :image nil))
 
 (defmethod initialize-instance :after ((object content) &key)
   (with-slots (tags) object

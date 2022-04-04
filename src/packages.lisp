@@ -17,6 +17,8 @@
            #:author
            #:deploy-dir
            #:domain
+           #:sitecdn
+           #:videocdn
            #:page-ext
            #:repo-dir
            #:staging-dir
@@ -28,6 +30,9 @@
            ;; Content Helpers
            #:title-of
            #:author-of
+           #:page-url
+           #:description-of
+           #:image-of
            #:find-content-by-path
            #:date-of
            #:tags-of
