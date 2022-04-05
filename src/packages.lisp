@@ -31,6 +31,7 @@
            #:title-of
            #:author-of
            #:page-url
+           #:card-type-of
            #:description-of
            #:image-of
            #:find-content-by-path

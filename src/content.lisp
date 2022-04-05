@@ -53,11 +53,13 @@
    (file        :initarg :file        :reader content-file)
    (tags        :initarg :tags        :reader tags-of)
    (text        :initarg :text        :reader content-text)
+   (card-type   :initarg :card-type   :reader card-type-of)
    (description :initarg :description :reader description-of)
    (image       :initarg :image       :reader image-of))
   (:default-initargs
    :tags nil
    :date nil
+   :card-type nil
    :description nil
    :image nil))
 

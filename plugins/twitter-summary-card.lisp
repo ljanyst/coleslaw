@@ -5,10 +5,10 @@
 (in-package :coleslaw-twitter-summary-card)
 
 (defun summary-card (post twitter-handle)
-  (when (description-of post)
+  (when (card-type-of post)
     (concatenate
      'string
-     "<meta name=\"twitter:card\" content=\"summary\" />"
+     (format nil "<meta name=\"twitter:card\" content=\"~a\" />" (card-type-of post))
      (format nil "<meta name=\"twitter:author\" content=\"~a\" />" twitter-handle)
      (format nil "<meta property=\"og:url\" content=\"https:~a/~a\" />" (domain *config*) (page-url post))
      (format nil "<meta property=\"og:title\" content=\"~a\" />" (title-of post))
