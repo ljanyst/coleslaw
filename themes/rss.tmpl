@@ -9,6 +9,7 @@
     <atom:link href="{$config.domain}/rss.xml" rel="self" type="application/rss+xml" />
     <language>en-us</language>
     <pubDate>{$pubdate}</pubDate>
+    <description>{$config.title}</description>
 
     {foreach $post in $content.content}
     <item>
