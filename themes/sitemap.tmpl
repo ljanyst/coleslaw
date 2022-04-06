@@ -2,12 +2,12 @@
 
 {template sitemap}
 <?xml version="1.0"?>{\n}
-<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>
-    {foreach $url in $content.urls}
-    <url>
-        <loc>{$config.domain}/{$url}</loc>
-        <lastmod>{$pubdate}</lastmod>
-    </url>
+<urlset xmlns='http://www.sitemaps.org/schemas/sitemap/0.9'>{\n}
+    {foreach $page in $content.pages}
+    <url>{\n}
+        <loc>{$config.domain}/{$page.url}</loc>{\n}
+        <lastmod>{$page.moddate}</lastmod>{\n}
+    </url>{\n}
     {/foreach}
-</urlset>
+</urlset>{\n}
 {/template}

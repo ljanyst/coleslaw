@@ -3,6 +3,7 @@
   (:import-from :coleslaw #:*config*
                           #:index
                           #:page-url
+                          #:mod-date-of
                           #:find-all
                           #:publish
                           #:theme-fn
@@ -13,8 +14,12 @@
 
 (in-package :coleslaw-sitemap)
 
+(defclass sitemap-element ()
+  ((url :initarg :url :reader url)
+   (moddate :initarg :moddate :reader moddate)))
+
 (defclass sitemap (index)
-  ((urls :initarg :urls :reader urls)))
+  ((pages :initarg :pages :reader pages)))
 
 (defmethod page-url ((object sitemap)) "sitemap.xml")
 
@@ -22,9 +27,10 @@
 ;; sitemap discover method is called last. Need all other content to be
 ;; discovered/in the DB.
 (defmethod publish ((doc-type (eql (find-class 'sitemap))))
-  (let* ((base-urls '("" "sitemap.xml"))
-         (urls (mapcar #'page-url (hash-table-values coleslaw::*site*)))
-         (sitemap (make-instance 'sitemap :urls (append base-urls urls))))
+  (let* ((pages (mapcar (lambda (page)
+                          (make-instance 'sitemap-element :url (page-url page) :moddate (mod-date-of page)))
+                        (hash-table-values coleslaw::*site*)))
+         (sitemap (make-instance 'sitemap :pages pages)))
     (write-document sitemap (theme-fn 'sitemap "sitemap"))))
 
 (defun enable ())
