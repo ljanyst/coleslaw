@@ -109,7 +109,7 @@ use (fmt program args) as the value of PROGRAM."
 (defun timestamp-to-w3c (timestamp)
   "Convert universal time to W3C timestamp"
   (multiple-value-bind (second minute hour date month year day-of-the-week daylight zone) (decode-universal-time timestamp)
-    (format nil "~a-~2,'0d-~2,'0dT~2,'0d:~2,'0d:~2,'0d" year month date hour minute second)))
+    (format nil "~a-~2,'0d-~2,'0d" year month date)))
 
 (defun take-up-to (n seq)
   "Take elements from SEQ until all elements or N have been taken."
