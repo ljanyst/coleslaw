@@ -1,5 +1,9 @@
 (in-package :coleslaw)
 
+;; Ehhh
+(defvar *unix-epoch-difference*
+  (encode-universal-time 0 0 0 1 1 1970 0))
+
 (defun construct (class-name args)
   "Create an instance of CLASS-NAME with the given ARGS."
   (apply 'make-instance class-name args))
@@ -81,6 +85,31 @@ use (fmt program args) as the value of PROGRAM."
   (inferior-shell:run (fmt program args)
                       :show (not (silent *config*))
                       :output (not (silent *config*))))
+
+(defun run-program-to-string (program args workdir)
+  "Run a PROGRAM with ARGS in a WORKDIR"
+  (let ((proc (sb-ext:run-program program args
+                                  :search t
+                                  :output :stream
+                                  :wait t
+                                  :directory workdir)))
+    (read-line (sb-ext:process-output proc) nil)))
+
+(defun get-mod-datetime (path)
+  (let* ((repo (format nil "~a" (repo-dir *config*)))
+         (strpath (format nil "~a" path)))
+    (+ (parse-integer (run-program-to-string
+                       "git"
+                       (list "log" "-1" "--format=\"%at\"" "--" strpath)
+                       repo)
+                      :start 1
+                      :junk-allowed t)
+       *unix-epoch-difference*)))
+
+(defun timestamp-to-w3c (timestamp)
+  "Convert universal time to W3C timestamp"
+  (multiple-value-bind (second minute hour date month year day-of-the-week daylight zone) (decode-universal-time timestamp)
+    (format nil "~a-~2,'0d-~2,'0dT~2,'0d:~2,'0d:~2,'0d" year month date hour minute second)))
 
 (defun take-up-to (n seq)
   "Take elements from SEQ until all elements or N have been taken."
