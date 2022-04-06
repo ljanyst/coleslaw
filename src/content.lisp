@@ -50,6 +50,7 @@
 (defclass content ()
   ((url         :initarg :url         :reader page-url)
    (date        :initarg :date        :reader date-of)
+   (mod-date    :initarg :mod-date    :reader mod-date-of)
    (file        :initarg :file        :reader content-file)
    (tags        :initarg :tags        :reader tags-of)
    (text        :initarg :text        :reader content-text)
@@ -59,12 +60,17 @@
   (:default-initargs
    :tags nil
    :date nil
+   :mod-date nil
    :card-type nil
    :description nil
    :image nil))
 
 (defmethod initialize-instance :after ((object content) &key)
-  (with-slots (tags) object
+  (with-slots (tags file mod-date) object
+    (let ((timestamp (get-mod-datetime file)))
+      (when (> timestamp *latest-mod-timestamp*)
+        (setf *latest-mod-timestamp* timestamp))
+      (setf mod-date (timestamp-to-w3c timestamp)))
     (when (stringp tags)
       (setf tags (mapcar #'make-tag (cl-ppcre:split "," tags))))))
 

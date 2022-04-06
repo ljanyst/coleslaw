@@ -6,10 +6,13 @@
   "The list of tags which content has been tagged with.")
 
 (defclass index ()
-  ((url     :initarg :url     :reader page-url)
-   (name    :initarg :name    :reader index-name)
-   (title   :initarg :title   :reader title-of)
-   (content :initarg :content :reader index-content)))
+  ((url      :initarg :url      :reader page-url)
+   (name     :initarg :name     :reader index-name)
+   (title    :initarg :title    :reader title-of)
+   (mod-date :initarg :mod-date :reader mod-date-of)
+   (content  :initarg :content  :reader index-content))
+  (:default-initargs
+   :mod-date (timestamp-to-w3c *latest-mod-timestamp*)))
 
 (defmethod initialize-instance :after ((object index) &key slug)
   (with-slots (url) object

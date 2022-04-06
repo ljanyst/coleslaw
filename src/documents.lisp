@@ -7,6 +7,9 @@
 (defvar *site* (make-hash-table :test #'equal)
   "An in-memory database to hold all site documents, keyed on relative URLs.")
 
+(defvar *latest-mod-timestamp* 0
+  "The modification date of the newest content file")
+
 ;; Class Methods
 
 (defgeneric publish (doc-type)
@@ -27,6 +30,9 @@
 
 (defgeneric page-url (document)
   (:documentation "The relative URL to the DOCUMENT."))
+
+(defgeneric mod-date-of (document)
+  (:documentation "The modification date of the DOCUMENT."))
 
 (defgeneric render (document &key &allow-other-keys)
   (:documentation "Render the given DOCUMENT to HTML."))
