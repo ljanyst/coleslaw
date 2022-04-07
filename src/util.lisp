@@ -92,6 +92,10 @@ use (fmt program args) as the value of PROGRAM."
                                   :search t
                                   :output :stream
                                   :wait t
+                                  :environment (list
+                                                (concatenate 'string
+                                                             "PATH="
+                                                             (sb-ext:posix-getenv "PATH")))
                                   :directory workdir)))
     (read-line (sb-ext:process-output proc) nil)))
 
