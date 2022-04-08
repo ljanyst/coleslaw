@@ -56,6 +56,7 @@
    (text        :initarg :text        :reader content-text)
    (card-type   :initarg :card-type   :reader card-type-of)
    (description :initarg :description :reader description-of)
+   (summary     :initarg :summary     :reader summary-of)
    (image       :initarg :image       :reader image-of))
   (:default-initargs
    :tags nil
@@ -63,6 +64,7 @@
    :mod-date nil
    :card-type nil
    :description nil
+   :summary nil
    :image nil))
 
 (defmethod initialize-instance :after ((object content) &key)
