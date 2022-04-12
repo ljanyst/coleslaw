@@ -21,6 +21,6 @@
 (defun enable (&key twitter-handle)
   (add-injection
    (lambda (x)
-     (when (typep x 'post)
+     (when (typep x 'content)
        (summary-card x twitter-handle)))
                  :head))
