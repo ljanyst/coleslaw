@@ -10,11 +10,13 @@
      'string
      (format nil "<meta name=\"twitter:card\" content=\"~a\" />" (card-type-of post))
      (format nil "<meta name=\"twitter:author\" content=\"~a\" />" twitter-handle)
+     (format nil "<meta name=\"description\" content=\"~a\" />" (description-of post))
      (format nil "<meta property=\"og:url\" content=\"https:~a/~a\" />" (domain *config*) (page-url post))
      (format nil "<meta property=\"og:title\" content=\"~a\" />" (title-of post))
      (format nil "<meta property=\"og:description\" content=\"~a\" />" (description-of post))
-     (when (image-of post)
-       (format nil "<meta property=\"og:image\" content=\"~a~a\" />" (sitecdn *config*) (image-of post))))))
+     (if (image-of post)
+         (format nil "<meta property=\"og:image\" content=\"~a~a\" />" (sitecdn *config*) (image-of post))
+         (format nil "<meta property=\"og:image\" content=\"~a~a\" />" (sitecdn *config*) "/static/images/cards/default-1x1.webp")))))
 
 (defun enable (&key twitter-handle)
   (add-injection
