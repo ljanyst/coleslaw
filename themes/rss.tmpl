@@ -21,7 +21,16 @@
       {foreach $tag in $post.tags}
         <category><![CDATA[ {$tag.name |noAutoescape} ]]></category>
       {/foreach}
-      <description><![CDATA[ {$post.summary |noAutoescape}<br/><br/><a href="{$config.domain}/{$post.url}">Read more...</a> ]]></description>
+      <description>
+        <![CDATA[
+          {if $post.image}
+            <img src="{$config.sitecdn}/{$post.image}"/><br/><br/>
+          {/if}
+          <p>{$post.summary |noAutoescape}</p>
+          <br/><br/>
+          <a href="{$config.domain}/{$post.url}">Read more...</a>
+        ]]>
+      </description>
     </item>
     {/foreach}
 
