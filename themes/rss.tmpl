@@ -21,7 +21,7 @@
       {foreach $tag in $post.tags}
         <category><![CDATA[ {$tag.name |noAutoescape} ]]></category>
       {/foreach}
-      <description><![CDATA[ {$post.text |noAutoescape} ]]></description>
+      <description><![CDATA[ {$post.summary |noAutoescape}<br/><br/><a href="{$config.domain}/{$post.url}">Read more...</a> ]]></description>
     </item>
     {/foreach}
 
