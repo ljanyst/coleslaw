@@ -59,6 +59,7 @@
    (summary     :initarg :summary     :reader summary-of)
    (image       :initarg :image       :reader image-of))
   (:default-initargs
+   :url nil
    :tags nil
    :date nil
    :mod-date nil

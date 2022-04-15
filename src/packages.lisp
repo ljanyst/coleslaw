@@ -29,6 +29,7 @@
            #:index
            ;; Content Helpers
            #:title-of
+           #:content-file
            #:author-of
            #:page-url
            #:card-type-of
