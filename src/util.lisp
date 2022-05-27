@@ -101,14 +101,15 @@ use (fmt program args) as the value of PROGRAM."
 
 (defun get-mod-datetime (path)
   (let* ((repo (format nil "~a" (repo-dir *config*)))
-         (strpath (format nil "~a" path)))
-    (+ (parse-integer (run-program-to-string
-                       "git"
-                       (list "log" "-1" "--format=\"%at\"" "--" strpath)
-                       repo)
-                      :start 1
-                      :junk-allowed t)
-       *unix-epoch-difference*)))
+         (strpath (format nil "~a" path))
+         (timestamp (run-program-to-string
+                     "git"
+                     (list "log" "-1" "--format=\"%at\"" "--" strpath)
+                     repo)))
+    (if (not (equal timestamp nil))
+        (+ (parse-integer timestamp :start 1 :junk-allowed t)
+           *unix-epoch-difference*)
+        (get-universal-time))))
 
 (defun timestamp-to-w3c (timestamp)
   "Convert universal time to W3C timestamp"
